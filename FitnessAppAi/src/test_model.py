@@ -1,6 +1,7 @@
 import warnings
 from keras.preprocessing.image import ImageDataGenerator
 import keras
+import json
 
 warnings.filterwarnings("ignore")
 
@@ -31,5 +32,15 @@ def main():
     print('Test loss:', test_score[0])
     print('Test accuracy:', test_score[1])
 
+def parse_json():
+    print("*** PARSIRANJE JSON FILE-A ***")
+
+    with open('../fajlovi/nutritivne_vrednosti.json', 'r') as f:
+        array = json.load(f)
+
+    print(array)
+
+
 if __name__ == '__main__':
-    main()
+    # main()
+    parse_json()

@@ -1,0 +1,16 @@
+[
+  {
+    "naziv": "naziv1",
+    "energetska_vrednost": "22",
+    "belancevine": "33",
+    "ugljeni_hidrati": "44",
+    "masti": "55"
+  },
+  {
+    "naziv": "naziv2",
+    "energetska_vrednost": "221",
+    "belancevine": "331",
+    "ugljeni_hidrati": "441",
+    "masti": "551"
+  }
+]
