@@ -38,7 +38,8 @@ def parse_json():
     with open('../fajlovi/nutritivne_vrednosti.json', 'r') as f:
         array = json.load(f)
 
-    print(array)
+    for r in array:
+        print(r)
 
 
 if __name__ == '__main__':
