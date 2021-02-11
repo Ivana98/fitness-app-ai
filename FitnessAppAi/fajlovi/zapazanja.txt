@@ -1,0 +1,11 @@
+*** ADAPTIVNI THRESHOLD ***
+prvo smo koristili ADAPTIVE_THRESH_MEAN_C, a zatim ADAPTIVE_THRESH_GAUSSIAN_C (threshold value is the
+weighted sum of neighbourhood values where weights are a gaussian window.). ADAPTIVE_THRESH_GAUSSIAN_C nam
+daje malo bolje citkije rezultate. dosta "sumova" se zanemari. Da li nam to uopste odgovara???
+ADAPTIVE_THRESH_MEAN_C ipak daje malo bolje rezultate
+BANANE
+POMORANDZE
+LUK
+
+za velicinu bloka susednih piskela mi najbole ispadne 35x35 za primere koje sam izdvojio
+
