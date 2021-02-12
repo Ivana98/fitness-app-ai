@@ -9,3 +9,6 @@ LUK
 
 za velicinu bloka susednih piskela mi najbole ispadne 35x35 za primere koje sam izdvojio
 
+Na kraju je za jednostavnu sliku sa belom pozadinom
+i sa vockama koje se ne preklapaju bolje odradio posao
+obican trashold. 

@@ -19,7 +19,8 @@ def main():
         img = cv2.imread(file_path)
         img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        image_bin = cv2.adaptiveThreshold(img_gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 45, 5)
+        # image_bin = cv2.adaptiveThreshold(img_gray, 155, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 55, 5)
+        _, image_bin = cv2.threshold(img_gray, 225, 255, cv2.THRESH_BINARY_INV)
         ##### ret, image_bin = cv2.threshold(img_gray, 0, 255, cv2.THRESH_OTSU)
         plt.imshow(image_bin, 'gray')
         plt.show()
@@ -30,7 +31,7 @@ def main():
         # cv2.erode(image_bin, kernel, iterations=1)
         # plt.show()
 
-        contours, hierarchy = cv2.findContours(image_bin, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+        contours, hierarchy = cv2.findContours(image_bin, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
         # img2 = img.copy()
         # cv2.drawContours(img2, contours, -1, (255, 0, 0), 5)
@@ -49,7 +50,7 @@ def main():
         print("Broj kontura koje imamo: " + str(len(contours_barcode)))
 
         img3 = img.copy()
-        cv2.drawContours(img3, contours_barcode, -1, 255, 5)  # (255, 0, 0) je bilo umesto 255
+        cv2.drawContours(img3, contours_barcode, -1, 255, 3)  # (255, 0, 0) je bilo umesto 255
         plt.imshow(img3)
         plt.show()
 
