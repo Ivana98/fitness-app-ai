@@ -4,12 +4,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 # import sklearn.cluster.KMeans
 from os import listdir, path
+import keras
 
 matplotlib.rcParams['figure.figsize'] = 8, 6
 
-BASE_PATH = "D:/Semestar7/Soft kompjuting/Projekat/fruits-360/tmf2"
+BASE_PATH = "D:/Fakultet/7sms-Soft_computing/fruits-360/test-multiple_fruits"
+# BASE_PATH = "D:/Semestar7/Soft kompjuting/Projekat/fruits-360/tmf2"
 # BASE_PATH = "D:/soft/fruits-360/test-multiple_fruits"
-
+loaded_model = keras.models.load_model('../saved_models/saved_modelsmodel1.h5')
 
 def trashold_segmantation():
 
@@ -50,7 +52,7 @@ def napravi_konture(image_bin, img):
             contour)  # pronadji pravougaonik minimalne povrsine koji ce obuhvatiti celu konturu
         width, height = size
         if 200 < width < 700 and 200 < height < 700:  # uslov da kontura pripada bar-kodu
-            # izdvoj_sliku(contour, img)
+            izdvoj_sliku(contour, img)
             contours_barcode.append(contour)  # ova kontura pripada bar-kodu
 
     print("Broj kontura koje imamo: " + str(len(contours_barcode)))
@@ -72,6 +74,7 @@ def izdvoj_sliku(contour, img):
 
     x, y, w, h = cv2.boundingRect(contour)
     cropped = img[y:y + h, x:x + w]  # ovo treba da ide u mrezu
+    get_image_class(cropped)
     plt.imshow(cropped)
     plt.show()
 
@@ -104,6 +107,15 @@ def color_contour():
         napravi_konture(segmented_image, image)
 
 
+def get_image_class(image):
+    # resized_img = cv2.resize(image, (100, 100), interpolation=cv2.INTER_AREA)
+    image = cv2.resize(image, (100, 100))
+    image = np.expand_dims(image, axis=0)
+    img_class = loaded_model.predict(image)
+
+    print(img_class)
+
+
 if __name__ == '__main__':
-    # trashold_segmantation()
-    color_contour()
+    trashold_segmantation()
+    # color_contour()
