@@ -8,7 +8,7 @@ from os import listdir, path
 matplotlib.rcParams['figure.figsize'] = 8, 6
 
 # BASE_PATH = "D:/Semestar7/Soft kompjuting/Projekat/fruits-360/test-multiple_fruits"
-BASE_PATH = "D:/Semestar7/Soft kompjuting/Projekat/fruits-360/tmf2"
+BASE_PATH = "D:/soft/fruits-360/test-multiple_fruits"
 
 
 def main():
@@ -70,5 +70,32 @@ def izdvoj_sliku(contour, img):
     plt.show()
 
 
+def color_contour():
+    for file_name in listdir(BASE_PATH):
+        file_path = path.join(BASE_PATH, file_name)
+
+        image = cv2.imread(file_path)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+        pixel_values = image.reshape((-1, 3))
+        pixel_values = np.float32(pixel_values)
+
+        criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.2)
+
+        k = 2
+        _, labels, (centers) = cv2.kmeans(pixel_values, k, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
+
+        centers = np.uint8([0, 1])
+
+        labels = labels.flatten()
+
+        segmented_image = centers[labels.flatten()]
+        #segmented_image = np.where(segmented_image == [], 255, 0)
+        print(segmented_image)
+        segmented_image = segmented_image.reshape((image.shape[0], image.shape[1]))
+
+        plt.imshow(segmented_image, 'gray')
+        plt.show()
+
 if __name__ == '__main__':
-    main()
+    color_contour()
