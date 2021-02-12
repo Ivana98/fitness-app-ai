@@ -7,11 +7,11 @@ from os import listdir, path
 
 matplotlib.rcParams['figure.figsize'] = 8, 6
 
-# BASE_PATH = "D:/Semestar7/Soft kompjuting/Projekat/fruits-360/test-multiple_fruits"
-BASE_PATH = "D:/soft/fruits-360/test-multiple_fruits"
+BASE_PATH = "D:/Semestar7/Soft kompjuting/Projekat/fruits-360/tmf2"
+# BASE_PATH = "D:/soft/fruits-360/test-multiple_fruits"
 
 
-def main():
+def trashold_segmantation():
 
     for file_name in listdir(BASE_PATH):
         file_path = path.join(BASE_PATH, file_name)
@@ -25,34 +25,40 @@ def main():
         plt.imshow(image_bin, 'gray')
         plt.show()
 
-        # pokusacemo da dodamo malo erozije za nas primer
-        kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (2, 2))  # MORPH_ELIPSE, MORPH_RECT...
+        # dodavanje erozije
+        # kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (2, 2))  # MORPH_ELIPSE, MORPH_RECT...
         # plt.imshow(cv2.erode(image_bin, kernel, iterations=1), 'gray')
         # cv2.erode(image_bin, kernel, iterations=1)
         # plt.show()
 
-        contours, hierarchy = cv2.findContours(image_bin, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        napravi_konture(image_bin, img)
 
-        # img2 = img.copy()
-        # cv2.drawContours(img2, contours, -1, (255, 0, 0), 5)
-        # plt.imshow(img2)
-        # plt.show()
 
-        contours_barcode = []  # ovde ce biti samo konture koje pripadaju bar-kodu
-        for contour in contours:  # za svaku konturu
-            center, size, angle = cv2.minAreaRect(
-                contour)  # pronadji pravougaonik minimalne povrsine koji ce obuhvatiti celu konturu
-            width, height = size
-            if 200 < width < 700 and 200 < height < 700:  # uslov da kontura pripada bar-kodu
-                izdvoj_sliku(contour, img)
-                contours_barcode.append(contour)  # ova kontura pripada bar-kodu
+def napravi_konture(image_bin, img):
+    """
+    Pravimo i izdvajamo konture.
 
-        print("Broj kontura koje imamo: " + str(len(contours_barcode)))
+    :param image_bin:
+    :param img: Originalna slika ili slika za koju zelimo da ide u mrezu
+    """
 
-        img3 = img.copy()
-        cv2.drawContours(img3, contours_barcode, -1, 255, 3)  # (255, 0, 0) je bilo umesto 255
-        plt.imshow(img3)
-        plt.show()
+    contours, hierarchy = cv2.findContours(image_bin, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+    contours_barcode = []  # ovde ce biti samo konture koje pripadaju bar-kodu
+    for contour in contours:  # za svaku konturu
+        center, size, angle = cv2.minAreaRect(
+            contour)  # pronadji pravougaonik minimalne povrsine koji ce obuhvatiti celu konturu
+        width, height = size
+        if 200 < width < 700 and 200 < height < 700:  # uslov da kontura pripada bar-kodu
+            izdvoj_sliku(contour, img)
+            contours_barcode.append(contour)  # ova kontura pripada bar-kodu
+
+    print("Broj kontura koje imamo: " + str(len(contours_barcode)))
+
+    img3 = img.copy()
+    cv2.drawContours(img3, contours_barcode, -1, 255, 3)  # (255, 0, 0) je bilo umesto 255
+    plt.imshow(img3)
+    plt.show()
 
 
 def izdvoj_sliku(contour, img):
@@ -65,7 +71,7 @@ def izdvoj_sliku(contour, img):
     """
 
     x, y, w, h = cv2.boundingRect(contour)
-    cropped = img[y:y + h, x:x + w]
+    cropped = img[y:y + h, x:x + w]  # ovo treba da ide u mrezu
     plt.imshow(cropped)
     plt.show()
 
@@ -82,7 +88,7 @@ def color_contour():
 
         criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.2)
 
-        k = 2
+        k = 2  # broj klastera
         _, labels, (centers) = cv2.kmeans(pixel_values, k, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
 
         centers = np.uint8([0, 1])
@@ -90,12 +96,14 @@ def color_contour():
         labels = labels.flatten()
 
         segmented_image = centers[labels.flatten()]
-        #segmented_image = np.where(segmented_image == [], 255, 0)
-        print(segmented_image)
         segmented_image = segmented_image.reshape((image.shape[0], image.shape[1]))
 
-        plt.imshow(segmented_image, 'gray')
-        plt.show()
+        napravi_konture(segmented_image, image)
+
+        # plt.imshow(segmented_image, 'gray')
+        # plt.show()
+
 
 if __name__ == '__main__':
+    # trashold_segmantation()
     color_contour()

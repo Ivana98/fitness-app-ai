@@ -3,12 +3,12 @@ prvo smo koristili ADAPTIVE_THRESH_MEAN_C, a zatim ADAPTIVE_THRESH_GAUSSIAN_C (t
 weighted sum of neighbourhood values where weights are a gaussian window.). ADAPTIVE_THRESH_GAUSSIAN_C nam
 daje malo bolje citkije rezultate. dosta "sumova" se zanemari. Da li nam to uopste odgovara???
 ADAPTIVE_THRESH_MEAN_C ipak daje malo bolje rezultate
-BANANE
-POMORANDZE
-LUK
 
 za velicinu bloka susednih piskela mi najbole ispadne 35x35 za primere koje sam izdvojio
 
 Na kraju je za jednostavnu sliku sa belom pozadinom
 i sa vockama koje se ne preklapaju bolje odradio posao
-obican trashold. 
+obican trashold.
+
+pomocu k-means dolazimo do izdvajanje voca i na komplikovanijim slikama,
+sa mnogo vise sumova i sa vise preklapanja voca
