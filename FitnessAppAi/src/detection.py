@@ -42,7 +42,11 @@ def main():
             center, size, angle = cv2.minAreaRect(
                 contour)  # pronadji pravougaonik minimalne povrsine koji ce obuhvatiti celu konturu
             width, height = size
+            x, y, w, h = cv2.boundingRect(contour)
             if 200 < width < 700 and 200 < height < 700:  # uslov da kontura pripada bar-kodu
+                cropped = img[y:y + h, x:x + w]
+                plt.imshow(cropped)
+                plt.show()
                 contours_barcode.append(contour)  # ova kontura pripada bar-kodu
 
         print("Broj kontura koje imamo: " + str(len(contours_barcode)))
@@ -52,7 +56,7 @@ def main():
         plt.imshow(img3)
         plt.show()
 
-        crop_image(img3, contours_barcode)
+        # crop_image(img3, contours_barcode)
 
 
 def crop_image(img, contours):
@@ -78,6 +82,29 @@ def crop_image(img, contours):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
+def crop2():
+    img = cv2.imread('D:/Semestar7/Soft kompjuting/Projekat/fruits-360/tmf2/varieties-apples.jpg')
+    output = img.copy()
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 4, 10000, param1=100, param2=4, minRadius=4, maxRadius=70)
+
+    if circles is not None:
+        circles = np.round(circles[0, :]).astype("int")
+        if len(circles) == 1:
+            x, y, r = circles[0]
+            mask = np.zeros((img.shape[1], img.shape[0], 3), np.uint8)
+            cv2.circle(mask, (x, y), r, (255, 255, 255), -1, 8, 0)
+            out = img * mask
+            white = 255 - mask
+            cv2.imwrite('crop_mask1.png', out + white)
+            cv2.imwrite('crop_mask2.png', out)
+            cv2.imshow('cing', out)
+
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
 
 if __name__ == '__main__':
     main()
+    # crop2()
