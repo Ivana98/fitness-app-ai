@@ -50,7 +50,7 @@ def napravi_konture(image_bin, img):
             contour)  # pronadji pravougaonik minimalne povrsine koji ce obuhvatiti celu konturu
         width, height = size
         if 200 < width < 700 and 200 < height < 700:  # uslov da kontura pripada bar-kodu
-            izdvoj_sliku(contour, img)
+            # izdvoj_sliku(contour, img)
             contours_barcode.append(contour)  # ova kontura pripada bar-kodu
 
     print("Broj kontura koje imamo: " + str(len(contours_barcode)))
@@ -98,10 +98,10 @@ def color_contour():
         segmented_image = centers[labels.flatten()]
         segmented_image = segmented_image.reshape((image.shape[0], image.shape[1]))
 
-        napravi_konture(segmented_image, image)
+        plt.imshow(segmented_image, 'gray')
+        plt.show()
 
-        # plt.imshow(segmented_image, 'gray')
-        # plt.show()
+        napravi_konture(segmented_image, image)
 
 
 if __name__ == '__main__':
