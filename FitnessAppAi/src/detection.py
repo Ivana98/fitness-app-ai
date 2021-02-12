@@ -4,12 +4,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 # import sklearn.cluster.KMeans
 from os import listdir, path
+import keras
+from src.categories import CATEGORIES
 
 matplotlib.rcParams['figure.figsize'] = 8, 6
 
+# BASE_PATH = "D:/Fakultet/7sms-Soft_computing/fruits-360/test-multiple_fruits"
 BASE_PATH = "D:/Semestar7/Soft kompjuting/Projekat/fruits-360/tmf2"
 # BASE_PATH = "D:/soft/fruits-360/test-multiple_fruits"
-
+loaded_model = keras.models.load_model('../saved_models/saved_modelsmodel1.h5')
 
 def trashold_segmantation():
 
@@ -72,6 +75,9 @@ def izdvoj_sliku(contour, img):
 
     x, y, w, h = cv2.boundingRect(contour)
     cropped = img[y:y + h, x:x + w]  # ovo treba da ide u mrezu
+
+    get_image_class(cropped)
+
     plt.imshow(cropped)
     plt.show()
 
@@ -104,6 +110,17 @@ def color_contour():
         napravi_konture(segmented_image, image)
 
 
+def get_image_class(image):
+    image = cv2.resize(image, (100, 100))
+    image = np.expand_dims(image, axis=0)
+    predictions = loaded_model.predict(image)
+    class_name = CATEGORIES[np.argmax(predictions)]
+
+    print(predictions)
+    print("predicted number: " + str(np.argmax(predictions)) + " class_name: " + str(class_name))
+    return class_name
+
+
 if __name__ == '__main__':
-    # trashold_segmantation()
-    color_contour()
+    trashold_segmantation()
+    # color_contour()
