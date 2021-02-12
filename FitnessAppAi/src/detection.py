@@ -42,11 +42,8 @@ def main():
             center, size, angle = cv2.minAreaRect(
                 contour)  # pronadji pravougaonik minimalne povrsine koji ce obuhvatiti celu konturu
             width, height = size
-            x, y, w, h = cv2.boundingRect(contour)
             if 200 < width < 700 and 200 < height < 700:  # uslov da kontura pripada bar-kodu
-                cropped = img[y:y + h, x:x + w]
-                plt.imshow(cropped)
-                plt.show()
+                izdvoj_sliku(contour, img)
                 contours_barcode.append(contour)  # ova kontura pripada bar-kodu
 
         print("Broj kontura koje imamo: " + str(len(contours_barcode)))
@@ -56,55 +53,21 @@ def main():
         plt.imshow(img3)
         plt.show()
 
-        # crop_image(img3, contours_barcode)
 
+def izdvoj_sliku(contour, img):
+    """
+    Izdvajamo konturu sa originalne slike i printujemo je.
 
-def crop_image(img, contours):
-    # img = cv2.imread('...', 0)  # Read in your image
-    # _, contours, _ = cv2.findContours(...)  # Your call to find the contours
-    # idx = 0  # The index of the contour that surrounds your object
-    # mask = np.zeros_like(img)  # Create mask where white is what we want, black otherwise
-    # cv2.drawContours(mask, contours, idx, 255, -1)  # Draw filled contour in mask
-    # out = np.zeros_like(img)  # Extract out the object and place into output image
-    # out[mask == 255] = img[mask == 255]
-    # plt.imshow(img)
-    # plt.show()
+    :param contour: izdvojena kontura
+    :param img: originalna slika
+    :return: None
+    """
 
-    # Now crop
-    print(np.where(img == 255))
-    (y, x) = np.where(img == 255)
-    (topy, topx) = (np.min(y), np.min(x))
-    (bottomy, bottomx) = (np.max(y), np.max(x))
-    out = img[topy:bottomy + 1, topx:bottomx + 1]
-
-    # Show the output image
-    cv2.imshow('Output', out)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
-def crop2():
-    img = cv2.imread('D:/Semestar7/Soft kompjuting/Projekat/fruits-360/tmf2/varieties-apples.jpg')
-    output = img.copy()
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 4, 10000, param1=100, param2=4, minRadius=4, maxRadius=70)
-
-    if circles is not None:
-        circles = np.round(circles[0, :]).astype("int")
-        if len(circles) == 1:
-            x, y, r = circles[0]
-            mask = np.zeros((img.shape[1], img.shape[0], 3), np.uint8)
-            cv2.circle(mask, (x, y), r, (255, 255, 255), -1, 8, 0)
-            out = img * mask
-            white = 255 - mask
-            cv2.imwrite('crop_mask1.png', out + white)
-            cv2.imwrite('crop_mask2.png', out)
-            cv2.imshow('cing', out)
-
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    x, y, w, h = cv2.boundingRect(contour)
+    cropped = img[y:y + h, x:x + w]
+    plt.imshow(cropped)
+    plt.show()
 
 
 if __name__ == '__main__':
     main()
-    # crop2()
