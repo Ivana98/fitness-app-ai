@@ -2,22 +2,19 @@ import cv2
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-# import sklearn.cluster.KMeans
 from os import listdir, path
 import keras
 from categories import CATEGORIES
+from src.imports import TEST_FOLDER
 
 matplotlib.rcParams['figure.figsize'] = 8, 6
 
-# BASE_PATH = "D:/Fakultet/7sms-Soft_computing/fruits-360/test-multiple_fruits"
-# BASE_PATH = "D:/Semestar7/Soft kompjuting/Projekat/fruits-360/tmf2"
-BASE_PATH = "D:/soft/fruits-360/test-multiple"
-loaded_model = keras.models.load_model('../saved_models/model1.h5')
+loaded_model = keras.models.load_model('../saved_models/model.h5')
 
 def trashold_segmantation():
 
-    for file_name in listdir(BASE_PATH):
-        file_path = path.join(BASE_PATH, file_name)
+    for file_name in listdir(TEST_FOLDER):
+        file_path = path.join(TEST_FOLDER, file_name)
 
         img = cv2.imread(file_path)
         img2 = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -89,8 +86,8 @@ def izdvoj_sliku(contour, img):
 
 
 def color_contour():
-    for file_name in listdir(BASE_PATH):
-        file_path = path.join(BASE_PATH, file_name)
+    for file_name in listdir(TEST_FOLDER):
+        file_path = path.join(TEST_FOLDER, file_name)
 
         image = cv2.imread(file_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)

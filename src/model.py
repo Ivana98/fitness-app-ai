@@ -4,9 +4,7 @@ from tensorflow.keras.losses import sparse_categorical_crossentropy
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-# Data configuration
-training_set_folder = '../../../fruits-360/Training_smaller'
-test_set_folder = '../../fruits-360/Test_smaller'
+from src.imports import TRAINING_SMALLER_FOLDER
 
 # Model configuration
 batch_size = 25
@@ -25,7 +23,7 @@ train_datagen = ImageDataGenerator(
   rescale=1./255
 )
 train_datagen = train_datagen.flow_from_directory(
-        training_set_folder,
+        TRAINING_SMALLER_FOLDER,
         save_to_dir='../adapted-images',
         save_format='jpeg',
         batch_size=batch_size,
@@ -58,12 +56,10 @@ model.fit(
 
 # Save model
 try:
-    path = "../saved_models/model1.h5"
+    path = "../saved_models/model.h5"
 
     # Save the entire model to a HDF5 file.
     # The '.h5' extension indicates that the model should be saved to HDF5.
     model.save(path)
 except OSError as err:
     print("OS error: {0}".format(err))
-except:
-    print("Could not save model.")
