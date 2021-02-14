@@ -33,12 +33,6 @@ def trashold_segmantation():
         plt.imshow(image_bin, 'gray')
         plt.show()
 
-        # dodavanje erozije
-        # kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (2, 2))  # MORPH_ELIPSE, MORPH_RECT...
-        # plt.imshow(cv2.erode(image_bin, kernel, iterations=1), 'gray')
-        # cv2.erode(image_bin, kernel, iterations=1)
-        # plt.show()
-
         napravi_konture(image_bin, img2)
 
 
@@ -57,6 +51,10 @@ def napravi_konture(image_bin, img):
         center, size, angle = cv2.minAreaRect(
             contour)  # pronadji pravougaonik minimalne povrsine koji ce obuhvatiti celu konturu
         width, height = size
+        print("size: ")
+        print(size)
+        print("angle: ")
+        print(angle)
         if 200 < width < 1000 and 200 < height < 1000:  # uslov da kontura pripada bar-kodu
             izdvoj_sliku(contour, img)
             contours_barcode.append(contour)  # ova kontura pripada bar-kodu
@@ -64,9 +62,11 @@ def napravi_konture(image_bin, img):
     print("Broj kontura koje imamo: " + str(len(contours_barcode)))
 
     img3 = img.copy()
+    cv2.drawContours(img3, contours_barcode, -1, 255, 3)  # (255, 0, 0) je bilo umesto 255
+
+    ### prikaz slike sa iscrtanim konturama
     # plt.imshow(img3)
     # plt.show()
-    cv2.drawContours(img3, contours_barcode, -1, 255, 3)  # (255, 0, 0) je bilo umesto 255
 
 
 
@@ -86,46 +86,6 @@ def izdvoj_sliku(contour, img):
 
     plt.imshow(cropped)
     plt.show()
-
-def IoU():
-    print("** EVALUACIJA **")
-
-    # ucitavam sliku
-
-    img = cv2.imread("D:/Semestar7/Soft kompjuting/Projekat/fruits-360/IoU/kivi.jpg")
-    plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-    plt.show()
-
-    # pravim prvi bounding box
-
-    first_bb_points = [[250, 210], [440, 210], [440, 390], [250, 390]]
-    first_bb_points = [[460, 750], [1100, 750], [1100, 1300], [460, 1300]]
-    stencil = np.zeros(img.shape).astype(img.dtype)
-    contours = [np.array(first_bb_points)]
-    color = [255, 255, 255]
-    cv2.fillPoly(stencil, contours, color)
-    result1 = cv2.bitwise_and(img, stencil)
-    result1 = cv2.cvtColor(result1, cv2.COLOR_BGR2RGB)
-    plt.imshow(result1)
-    plt.show()
-
-    # pravimo drugi bounding box
-
-    second_bb_points = [[280, 190], [438, 190], [438, 390], [280, 390]]
-    stencil = np.zeros(img.shape).astype(img.dtype)
-    contours = [np.array(second_bb_points)]
-    color = [255, 255, 255]
-    cv2.fillPoly(stencil, contours, color)
-    result2 = cv2.bitwise_and(img, stencil)
-    result2 = cv2.cvtColor(result2, cv2.COLOR_BGR2RGB)
-    plt.imshow(result2)
-    plt.show()
-
-    # racunanje greske
-    intersection = np.logical_and(result1, result2)
-    union = np.logical_or(result1, result2)
-    iou_score = np.sum(intersection) / np.sum(union)
-    print('IoU je % s' % iou_score)
 
 
 def color_contour():
@@ -160,6 +120,8 @@ def get_image_class(image):
     image = cv2.resize(image, (100, 100))
     image = np.expand_dims(image, axis=0)
 
+    # image = image / 255
+
     predictions = loaded_model.predict(image)
     class_name = CATEGORIES[np.argmax(predictions)]
 
@@ -168,6 +130,79 @@ def get_image_class(image):
     return class_name
 
 
+def IoU():
+    print("** EVALUACIJA **")
+
+    # ucitavam sliku
+
+    img = cv2.imread("D:/Semestar7/Soft kompjuting/Projekat/fruits-360/IoU/kivi.jpg")
+    plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    plt.show()
+
+    # pravim prvi bounding box
+    # prvi bouding box ce da bude rezultat nase segmentacije
+
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    image_bin = cv2.adaptiveThreshold(img_gray, 155, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 35, 5)
+
+    contours, hierarchy = cv2.findContours(image_bin, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+    contours_barcode = []  # ovde ce biti samo konture koje pripadaju bar-kodu
+    con = None
+    for contour in contours:  # za svaku konturu
+        center, size, angle = cv2.minAreaRect(
+            contour)  # pronadji pravougaonik minimalne povrsine koji ce obuhvatiti celu konturu
+        width, height = size
+        if 200 < width < 1000 and 200 < height < 1000:  # uslov da kontura pripada bar-kodu
+            # izdvoj_sliku(contour, img)
+            contours_barcode.append(contour)  # ova kontura pripada bar-kodu
+            con = contour
+
+    print(len(contours_barcode))
+    con = contours_barcode[0]
+
+    rect = cv2.minAreaRect(con)
+    box = cv2.boxPoints(rect)  # koordinate kvadrata
+
+    box_lista = []
+
+    for p in box:
+        print(p)
+        box_lista.append([int(float(p[0])), int(float(p[1]))])
+
+    first_bb_points = box_lista
+    stencil = np.zeros(img.shape).astype(img.dtype)
+    contours = [np.array(first_bb_points)]
+    color = [255, 255, 255]
+    cv2.fillPoly(stencil, contours, color)
+    result1 = cv2.bitwise_and(img, stencil)
+    result1 = cv2.cvtColor(result1, cv2.COLOR_BGR2RGB)
+    plt.imshow(result1)
+    plt.show()
+
+    # pravimo drugi bounding box
+    # drugi bounding box ce da bude rucno unesen
+
+    second_bb_points = [[280, 190], [438, 190], [438, 390], [280, 390]]
+    second_bb_points = [[491, 1013], [884, 771], [1043, 1034], [652, 1273]]
+    stencil = np.zeros(img.shape).astype(img.dtype)
+    contours = [np.array(second_bb_points)]
+    color = [255, 255, 255]
+    cv2.fillPoly(stencil, contours, color)
+    result2 = cv2.bitwise_and(img, stencil)
+    result2 = cv2.cvtColor(result2, cv2.COLOR_BGR2RGB)
+    plt.imshow(result2)
+    plt.show()
+
+    # racunanje greske
+    intersection = np.logical_and(result1, result2)
+    union = np.logical_or(result1, result2)
+    iou_score = np.sum(intersection) / np.sum(union)
+    print('IoU je % s' % iou_score)
+
+
 if __name__ == '__main__':
-    trashold_segmantation()
+    # trashold_segmantation()
+    IoU()
     # color_contour()
