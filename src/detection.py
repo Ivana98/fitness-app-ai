@@ -2,12 +2,8 @@ import cv2
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import keras
-from categories import CATEGORIES
 
 matplotlib.rcParams['figure.figsize'] = 8, 6
-
-loaded_model = keras.models.load_model('../saved_models/model.h5')
 
 
 def adaptive_threshold(image):
@@ -66,16 +62,6 @@ def color_contour(image):
     image_bin = image_bin.reshape((image.shape[0], image.shape[1]))
 
     return image_bin
-
-
-def get_image_class(image):
-    image = cv2.resize(image, (25, 25))
-    image = np.expand_dims(image, axis=0)
-
-    predictions = loaded_model.predict(image)
-    class_name = CATEGORIES[np.argmax(predictions)]
-
-    return class_name
 
 
 def IoU():

@@ -1,7 +1,12 @@
 import cv2
 from os import listdir, path
 from src.imports import TEST_FOLDER
-from src.detection import adaptive_threshold, crop_image, get_image_class, construct_contours
+from src.detection import adaptive_threshold, crop_image, construct_contours
+import numpy as np
+import keras
+from src.categories import CATEGORIES_SMALLER
+
+loaded_model = keras.models.load_model('../saved_models/model.h5')
 
 
 def main():
@@ -17,7 +22,12 @@ def main():
 
         for contour in contours:
             cropped_image = crop_image(contour, original_image)
-            class_name = get_image_class(cropped_image)
+
+            cropped_image = cv2.resize(cropped_image, (25, 25))
+            cropped_image = np.expand_dims(cropped_image, axis=0)
+
+            predictions = loaded_model.predict(cropped_image)
+            class_name = CATEGORIES_SMALLER[np.argmax(predictions)]
             print(class_name)
 
 

@@ -131,3 +131,16 @@ CATEGORIES = [
     "Walnut",
     "Watermelon"
 ]
+
+CATEGORIES_SMALLER = [
+    "Apricot",
+    "Avocado",
+    "Banana",
+    "Blueberry",
+    "Cocos",
+    "Eggplant",
+    "Hazelnut",
+    "Kiwi",
+    "Limes",
+    "Orange"
+]
