@@ -20,7 +20,10 @@ def trashold_segmantation():
         file_path = path.join(BASE_PATH, file_name)
 
         img = cv2.imread(file_path)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img2 = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+        # image = cv2.GaussianBlur(img, (5, 5), 0)
+        # image = cv2.bilateralFilter(image, 15, 75, 75)
 
         img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -36,7 +39,7 @@ def trashold_segmantation():
         # cv2.erode(image_bin, kernel, iterations=1)
         # plt.show()
 
-        napravi_konture(image_bin, img)
+        napravi_konture(image_bin, img2)
 
 
 def napravi_konture(image_bin, img):
