@@ -12,7 +12,7 @@ matplotlib.rcParams['figure.figsize'] = 8, 6
 # BASE_PATH = "D:/Fakultet/7sms-Soft_computing/fruits-360/test-multiple_fruits"
 # BASE_PATH = "D:/Semestar7/Soft kompjuting/Projekat/fruits-360/tmf2"
 BASE_PATH = "D:/soft/fruits-360/test-multiple"
-loaded_model = keras.models.load_model('../saved_models/saved_modelsmodel1.h5')
+loaded_model = keras.models.load_model('../saved_models/model1.h5')
 
 def trashold_segmantation():
 
@@ -117,12 +117,13 @@ def color_contour():
 
 
 def get_image_class(image):
-    image = cv2.resize(image, (100, 100))
+    image = cv2.resize(image, (25, 25))
     image = np.expand_dims(image, axis=0)
 
     # image = image / 255
 
     predictions = loaded_model.predict(image)
+    print(predictions)
     class_name = CATEGORIES[np.argmax(predictions)]
 
     print(predictions)
@@ -211,6 +212,6 @@ def IoU():
     print('IoU je % s' % iou_score)
 
 if __name__ == '__main__':
-    # trashold_segmantation()
-    IoU()
+    trashold_segmantation()
+    # IoU()
     # color_contour()
