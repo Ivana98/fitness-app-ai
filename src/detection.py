@@ -22,12 +22,18 @@ def adaptive_threshold(image):
 def construct_contours(image_bin, original_image):
     contours, hierarchy = cv2.findContours(image_bin, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
+    print("velicina konture" + str(len(contours)))
+    print("Hierarhija ispod: ")
+    print(hierarchy)
+
     contours_fruits = []
-    for contour in contours:
+    for idx, contour in enumerate(contours):
+
         center, size, angle = cv2.minAreaRect(contour)
         width, height = size
         if 200 < width < 1000 and 200 < height < 1000:
-            contours_fruits.append(contour)
+            if hierarchy[0, idx, 3] != 1:  # ako je -1 znaci da je child kontura
+                contours_fruits.append(contour)
 
     image_copy = original_image.copy()
     cv2.drawContours(image_copy, contours_fruits, -1, 255, 3)
@@ -41,6 +47,8 @@ def construct_contours(image_bin, original_image):
 def crop_image(contour, image):
     x, y, w, h = cv2.boundingRect(contour)
     cropped = image[y:y + h, x:x + w]
+
+
 
     return cropped
 
