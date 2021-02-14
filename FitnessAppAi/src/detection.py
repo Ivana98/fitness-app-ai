@@ -162,45 +162,57 @@ def IoU():
     print(len(contours_barcode))
     con = contours_barcode[0]
 
-    rect = cv2.minAreaRect(con)
-    box = cv2.boxPoints(rect)  # koordinate kvadrata
+    iou_scores = []
 
-    box_lista = []
+    for con in contours_barcode:
 
-    for p in box:
-        print(p)
-        box_lista.append([int(float(p[0])), int(float(p[1]))])
+        rect = cv2.minAreaRect(con)
+        box = cv2.boxPoints(rect)  # koordinate kvadrata
 
-    first_bb_points = box_lista
-    stencil = np.zeros(img.shape).astype(img.dtype)
-    contours = [np.array(first_bb_points)]
-    color = [255, 255, 255]
-    cv2.fillPoly(stencil, contours, color)
-    result1 = cv2.bitwise_and(img, stencil)
-    result1 = cv2.cvtColor(result1, cv2.COLOR_BGR2RGB)
-    plt.imshow(result1)
-    plt.show()
+        box_lista = []
 
-    # pravimo drugi bounding box
-    # drugi bounding box ce da bude rucno unesen
+        for p in box:
+            print(p)
+            box_lista.append([int(float(p[0])), int(float(p[1]))])
 
-    second_bb_points = [[280, 190], [438, 190], [438, 390], [280, 390]]
-    second_bb_points = [[491, 1013], [884, 771], [1043, 1034], [652, 1273]]
-    stencil = np.zeros(img.shape).astype(img.dtype)
-    contours = [np.array(second_bb_points)]
-    color = [255, 255, 255]
-    cv2.fillPoly(stencil, contours, color)
-    result2 = cv2.bitwise_and(img, stencil)
-    result2 = cv2.cvtColor(result2, cv2.COLOR_BGR2RGB)
-    plt.imshow(result2)
-    plt.show()
+        first_bb_points = box_lista
+        stencil = np.zeros(img.shape).astype(img.dtype)
+        contours = [np.array(first_bb_points)]
+        color = [255, 255, 255]
+        cv2.fillPoly(stencil, contours, color)
+        result1 = cv2.bitwise_and(img, stencil)
+        result1 = cv2.cvtColor(result1, cv2.COLOR_BGR2RGB)
+        plt.imshow(result1)
+        plt.show()
 
-    # racunanje greske
-    intersection = np.logical_and(result1, result2)
-    union = np.logical_or(result1, result2)
-    iou_score = np.sum(intersection) / np.sum(union)
+        # pravimo drugi bounding box
+        # drugi bounding box ce da bude rucno unesen
+
+        second_bb_points = [[491, 1013], [884, 771], [1043, 1034], [652, 1273]]
+        stencil = np.zeros(img.shape).astype(img.dtype)
+        contours = [np.array(second_bb_points)]
+        color = [255, 255, 255]
+        cv2.fillPoly(stencil, contours, color)
+        result2 = cv2.bitwise_and(img, stencil)
+        result2 = cv2.cvtColor(result2, cv2.COLOR_BGR2RGB)
+        plt.imshow(result2)
+        plt.show()
+
+        # racunanje greske
+        intersection = np.logical_and(result1, result2)
+        union = np.logical_or(result1, result2)
+        iou_score = np.sum(intersection) / np.sum(union)
+        iou_scores.append(iou_score)
+
+
+    # ovo radimo zato sto ponekad imamo
+    # konturu unutar konture
+    iou_score = [iou_scores[0]]
+    for ious in iou_scores:
+        if ious > iou_score:
+            iou_score = ious
+
     print('IoU je % s' % iou_score)
-
 
 if __name__ == '__main__':
     # trashold_segmantation()

@@ -38,7 +38,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="json" value="318" />
-          <entry key="py" value="2161" />
+          <entry key="py" value="2330" />
           <entry key="txt" value="354" />
         </counts>
       </usages-collector>
@@ -46,7 +46,7 @@
         <counts>
           <entry key="JSON" value="318" />
           <entry key="PLAIN_TEXT" value="354" />
-          <entry key="Python" value="2161" />
+          <entry key="Python" value="2330" />
         </counts>
       </usages-collector>
     </session>
@@ -79,8 +79,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/detection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="187" column="73" selection-start-line="187" selection-start-column="73" selection-end-line="187" selection-end-column="73" />
+            <state relative-caret-position="350">
+              <caret line="213" lean-forward="true" selection-start-line="213" selection-end-line="213" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#1595#2662#0" />
@@ -353,8 +353,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/detection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="187" column="73" selection-start-line="187" selection-start-column="73" selection-end-line="187" selection-end-column="73" />
+        <state relative-caret-position="350">
+          <caret line="213" lean-forward="true" selection-start-line="213" selection-end-line="213" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1595#2662#0" />
