@@ -1,3 +1,58 @@
-{
-  "image1.jpg": ,
-}
+[
+  {
+    "slika": "image1.jpg",
+    "energetska_vrednost": 275,
+    "belancevine": 0.7,
+    "ugljeni_hidrati": 141,
+    "masti": 0.33
+  },
+  {
+    "slika": "image2.jpg",
+    "energetska_vrednost": 79,
+    "belancevine": 0.5,
+    "ugljeni_hidrati": 37,
+    "masti": 0.25
+  },
+  {
+    "slika": "image3.jpg",
+    "energetska_vrednost": 241,
+    "belancevine": 0.4,
+    "ugljeni_hidrati": 128,
+    "masti": 0.13
+  },
+  {
+    "slika": "image4.jpg",
+    "energetska_vrednost": 275,
+    "belancevine": 0.7,
+    "ugljeni_hidrati": 141,
+    "masti": 0.33
+  },
+  {
+    "slika": "image5.jpg",
+    "energetska_vrednost": 34,
+    "belancevine": 0.3,
+    "ugljeni_hidrati": 13,
+    "masti": 0.2
+  },
+  {
+    "slika": "image6.jpg",
+    "energetska_vrednost": 98,
+    "belancevine": 0.1,
+    "ugljeni_hidrati": 52,
+    "masti": 0.04
+  },
+  {
+    "slika": "image7.jpg",
+    "energetska_vrednost": 45,
+    "belancevine": 0.2,
+    "ugljeni_hidrati": 24,
+    "masti": 0.05
+  },
+  {
+    "slika": "image8.jpg",
+    "energetska_vrednost": 158,
+    "belancevine": 1,
+    "ugljeni_hidrati": 74,
+    "masti": 0.5
+  }
+]
