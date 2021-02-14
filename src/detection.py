@@ -2,129 +2,79 @@ import cv2
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-from os import listdir, path
 import keras
 from categories import CATEGORIES
-from src.imports import TEST_FOLDER
 
 matplotlib.rcParams['figure.figsize'] = 8, 6
 
 loaded_model = keras.models.load_model('../saved_models/model.h5')
 
-def trashold_segmantation():
 
-    for file_name in listdir(TEST_FOLDER):
-        file_path = path.join(TEST_FOLDER, file_name)
+def adaptive_threshold(image):
+    image = cv2.GaussianBlur(image, (9, 9), 0)
+    image = cv2.bilateralFilter(image, 21, 75, 75)
 
-        img = cv2.imread(file_path)
-        img2 = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-        img = cv2.GaussianBlur(img, (9, 9), 0)
-        img = cv2.bilateralFilter(img, 21, 75, 75)
-
-        img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-        image_bin = cv2.adaptiveThreshold(img_gray, 155, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 35, 5)
-        # _, image_bin = cv2.threshold(img_gray, 225, 255, cv2.THRESH_BINARY_INV)
-        #### ret, image_bin = cv2.threshold(img_gray, 0, 255, cv2.THRESH_OTSU)
-        plt.imshow(image_bin, 'gray')
-        plt.show()
-
-        napravi_konture(image_bin, img2)
-
-
-def napravi_konture(image_bin, img):
-    """
-    Pravimo i izdvajamo konture.
-
-    :param image_bin:
-    :param img: Originalna slika ili slika za koju zelimo da ide u mrezu
-    """
-
-    contours, hierarchy = cv2.findContours(image_bin, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
-    contours_barcode = []  # ovde ce biti samo konture koje pripadaju bar-kodu
-    for contour in contours:  # za svaku konturu
-        center, size, angle = cv2.minAreaRect(
-            contour)  # pronadji pravougaonik minimalne povrsine koji ce obuhvatiti celu konturu
-        width, height = size
-        print("size: ")
-        print(size)
-        print("angle: ")
-        print(angle)
-        if 200 < width < 1000 and 200 < height < 1000:  # uslov da kontura pripada bar-kodu
-            izdvoj_sliku(contour, img)
-            contours_barcode.append(contour)  # ova kontura pripada bar-kodu
-
-    print("Broj kontura koje imamo: " + str(len(contours_barcode)))
-
-    img3 = img.copy()
-    cv2.drawContours(img3, contours_barcode, -1, 255, 3)  # (255, 0, 0) je bilo umesto 255
-
-    ### prikaz slike sa iscrtanim konturama
-    # plt.imshow(img3)
+    image_bin = cv2.adaptiveThreshold(image_gray, 155, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 35, 5)
+    # plt.imshow(image_bin, 'gray')
     # plt.show()
 
+    return image_bin
 
 
-def izdvoj_sliku(contour, img):
-    """
-    Izdvajamo konturu sa originalne slike i printujemo je.
+def construct_contours(image_bin, original_image):
+    contours, hierarchy = cv2.findContours(image_bin, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-    :param contour: izdvojena kontura
-    :param img: originalna slika
-    :return: None
-    """
+    contours_fruits = []
+    for contour in contours:
+        center, size, angle = cv2.minAreaRect(contour)
+        width, height = size
+        if 200 < width < 1000 and 200 < height < 1000:
+            contours_fruits.append(contour)
 
+    image_copy = original_image.copy()
+    cv2.drawContours(image_copy, contours_fruits, -1, 255, 3)
+
+    # plt.imshow(image_copy)
+    # plt.show()
+
+    return contours_fruits
+
+
+def crop_image(contour, image):
     x, y, w, h = cv2.boundingRect(contour)
-    cropped = img[y:y + h, x:x + w]  # ovo treba da ide u mrezu
+    cropped = image[y:y + h, x:x + w]
 
-    get_image_class(cropped)
-
-    plt.imshow(cropped)
-    plt.show()
+    return cropped
 
 
-def color_contour():
-    for file_name in listdir(TEST_FOLDER):
-        file_path = path.join(TEST_FOLDER, file_name)
+def color_contour(image):
+    pixel_values = image.reshape((-1, 3))
+    pixel_values = np.float32(pixel_values)
 
-        image = cv2.imread(file_path)
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.2)
 
-        pixel_values = image.reshape((-1, 3))
-        pixel_values = np.float32(pixel_values)
+    k = 2
+    _, labels, _ = cv2.kmeans(pixel_values, k, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
 
-        criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.2)
+    centers = np.uint8([0, 1])
 
-        k = 2  # broj klastera
-        _, labels, (centers) = cv2.kmeans(pixel_values, k, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
+    labels = labels.flatten()
 
-        centers = np.uint8([0, 1])
+    image_bin = centers[labels.flatten()]
+    image_bin = image_bin.reshape((image.shape[0], image.shape[1]))
 
-        labels = labels.flatten()
-
-        segmented_image = centers[labels.flatten()]
-        segmented_image = segmented_image.reshape((image.shape[0], image.shape[1]))
-
-        plt.imshow(segmented_image, 'gray')
-        plt.show()
-
-        napravi_konture(segmented_image, image)
+    return image_bin
 
 
 def get_image_class(image):
     image = cv2.resize(image, (25, 25))
     image = np.expand_dims(image, axis=0)
 
-    # image = image / 255
-
     predictions = loaded_model.predict(image)
-    print(predictions)
     class_name = CATEGORIES[np.argmax(predictions)]
 
-    print(predictions)
-    print("predicted number: " + str(np.argmax(predictions)) + " class_name: " + str(class_name))
     return class_name
 
 
@@ -207,8 +157,3 @@ def IoU():
             iou_score = ious
 
     print('IoU je % s' % iou_score)
-
-if __name__ == '__main__':
-    trashold_segmantation()
-    # IoU()
-    # color_contour()
