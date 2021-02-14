@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="207cd317-8913-495a-8f3e-3e04c4a68fb6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/detection.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +17,8 @@
           <entry key="project.closed" value="4" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.4" value="2" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.open.time.4" value="3" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -38,7 +38,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="json" value="318" />
-          <entry key="py" value="1023" />
+          <entry key="py" value="1273" />
           <entry key="txt" value="354" />
         </counts>
       </usages-collector>
@@ -46,7 +46,7 @@
         <counts>
           <entry key="JSON" value="318" />
           <entry key="PLAIN_TEXT" value="354" />
-          <entry key="Python" value="1023" />
+          <entry key="Python" value="1273" />
         </counts>
       </usages-collector>
     </session>
@@ -56,7 +56,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test_model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-456">
+            <state>
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -67,7 +67,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1695">
+            <state>
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -78,11 +78,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/detection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="18">
+              <caret line="49" column="93" lean-forward="true" selection-start-line="49" selection-start-column="93" selection-end-line="49" selection-end-column="93" />
             </state>
           </provider>
         </entry>
@@ -115,6 +112,10 @@
       <find>tomato</find>
       <find>&quot;energetska_vrednost&quot;: &quot;&quot;,</find>
       <find>&quot;masti&quot;: &quot;&quot;</find>
+      <find>izdvoj_sliku</find>
+      <find>loaded_model</find>
+      <find>get_image_class</find>
+      <find>show()</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;masti&quot;: 1</replace>
@@ -285,7 +286,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.26950353" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3177305" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -317,18 +318,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model1.py">
+    <entry file="file://$PROJECT_DIR$/src/test_model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1695">
+        <state>
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test_model.py">
+    <entry file="file://$PROJECT_DIR$/src/model1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-456">
+        <state>
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -344,11 +345,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/detection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="18">
+          <caret line="49" column="93" lean-forward="true" selection-start-line="49" selection-start-column="93" selection-end-line="49" selection-end-column="93" />
         </state>
       </provider>
     </entry>

@@ -20,11 +20,13 @@ def trashold_segmantation():
         file_path = path.join(BASE_PATH, file_name)
 
         img = cv2.imread(file_path)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
         img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        # image_bin = cv2.adaptiveThreshold(img_gray, 155, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 55, 5)
-        _, image_bin = cv2.threshold(img_gray, 225, 255, cv2.THRESH_BINARY_INV)
-        ##### ret, image_bin = cv2.threshold(img_gray, 0, 255, cv2.THRESH_OTSU)
+        image_bin = cv2.adaptiveThreshold(img_gray, 155, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 35, 5)
+        # _, image_bin = cv2.threshold(img_gray, 225, 255, cv2.THRESH_BINARY_INV)
+        #### ret, image_bin = cv2.threshold(img_gray, 0, 255, cv2.THRESH_OTSU)
         plt.imshow(image_bin, 'gray')
         plt.show()
 
@@ -52,16 +54,17 @@ def napravi_konture(image_bin, img):
         center, size, angle = cv2.minAreaRect(
             contour)  # pronadji pravougaonik minimalne povrsine koji ce obuhvatiti celu konturu
         width, height = size
-        if 200 < width < 700 and 200 < height < 700:  # uslov da kontura pripada bar-kodu
-            # izdvoj_sliku(contour, img)
+        if 200 < width < 1000 and 200 < height < 1000:  # uslov da kontura pripada bar-kodu
+            izdvoj_sliku(contour, img)
             contours_barcode.append(contour)  # ova kontura pripada bar-kodu
 
     print("Broj kontura koje imamo: " + str(len(contours_barcode)))
 
     img3 = img.copy()
+    # plt.imshow(img3)
+    # plt.show()
     cv2.drawContours(img3, contours_barcode, -1, 255, 3)  # (255, 0, 0) je bilo umesto 255
-    plt.imshow(img3)
-    plt.show()
+
 
 
 def izdvoj_sliku(contour, img):
@@ -113,6 +116,7 @@ def color_contour():
 def get_image_class(image):
     image = cv2.resize(image, (100, 100))
     image = np.expand_dims(image, axis=0)
+
     predictions = loaded_model.predict(image)
     class_name = CATEGORIES[np.argmax(predictions)]
 
