@@ -149,23 +149,19 @@ def IoU():
     contours, hierarchy = cv2.findContours(image_bin, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     contours_barcode = []  # ovde ce biti samo konture koje pripadaju bar-kodu
-    con = None
+
     for contour in contours:  # za svaku konturu
         center, size, angle = cv2.minAreaRect(
             contour)  # pronadji pravougaonik minimalne povrsine koji ce obuhvatiti celu konturu
         width, height = size
         if 200 < width < 1000 and 200 < height < 1000:  # uslov da kontura pripada bar-kodu
-            # izdvoj_sliku(contour, img)
             contours_barcode.append(contour)  # ova kontura pripada bar-kodu
-            con = contour
-
-    print(len(contours_barcode))
-    con = contours_barcode[0]
 
     iou_scores = []
 
     for con in contours_barcode:
 
+        # izdvajamo koordinate kvadrata konture
         rect = cv2.minAreaRect(con)
         box = cv2.boxPoints(rect)  # koordinate kvadrata
 
