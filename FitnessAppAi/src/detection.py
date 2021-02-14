@@ -87,6 +87,46 @@ def izdvoj_sliku(contour, img):
     plt.imshow(cropped)
     plt.show()
 
+def IoU():
+    print("** EVALUACIJA **")
+
+    # ucitavam sliku
+
+    img = cv2.imread("D:/Semestar7/Soft kompjuting/Projekat/fruits-360/IoU/kivi.jpg")
+    plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    plt.show()
+
+    # pravim prvi bounding box
+
+    first_bb_points = [[250, 210], [440, 210], [440, 390], [250, 390]]
+    first_bb_points = [[460, 750], [1100, 750], [1100, 1300], [460, 1300]]
+    stencil = np.zeros(img.shape).astype(img.dtype)
+    contours = [np.array(first_bb_points)]
+    color = [255, 255, 255]
+    cv2.fillPoly(stencil, contours, color)
+    result1 = cv2.bitwise_and(img, stencil)
+    result1 = cv2.cvtColor(result1, cv2.COLOR_BGR2RGB)
+    plt.imshow(result1)
+    plt.show()
+
+    # pravimo drugi bounding box
+
+    second_bb_points = [[280, 190], [438, 190], [438, 390], [280, 390]]
+    stencil = np.zeros(img.shape).astype(img.dtype)
+    contours = [np.array(second_bb_points)]
+    color = [255, 255, 255]
+    cv2.fillPoly(stencil, contours, color)
+    result2 = cv2.bitwise_and(img, stencil)
+    result2 = cv2.cvtColor(result2, cv2.COLOR_BGR2RGB)
+    plt.imshow(result2)
+    plt.show()
+
+    # racunanje greske
+    intersection = np.logical_and(result1, result2)
+    union = np.logical_or(result1, result2)
+    iou_score = np.sum(intersection) / np.sum(union)
+    print('IoU je % s' % iou_score)
+
 
 def color_contour():
     for file_name in listdir(BASE_PATH):
