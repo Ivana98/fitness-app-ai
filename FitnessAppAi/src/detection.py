@@ -5,13 +5,13 @@ import numpy as np
 # import sklearn.cluster.KMeans
 from os import listdir, path
 import keras
-from src.categories import CATEGORIES
+from categories import CATEGORIES
 
 matplotlib.rcParams['figure.figsize'] = 8, 6
 
 # BASE_PATH = "D:/Fakultet/7sms-Soft_computing/fruits-360/test-multiple_fruits"
-BASE_PATH = "D:/Semestar7/Soft kompjuting/Projekat/fruits-360/tmf2"
-# BASE_PATH = "D:/soft/fruits-360/test-multiple_fruits"
+# BASE_PATH = "D:/Semestar7/Soft kompjuting/Projekat/fruits-360/tmf2"
+BASE_PATH = "D:/soft/fruits-360/test-multiple"
 loaded_model = keras.models.load_model('../saved_models/saved_modelsmodel1.h5')
 
 def trashold_segmantation():
@@ -22,8 +22,8 @@ def trashold_segmantation():
         img = cv2.imread(file_path)
         img2 = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-        # image = cv2.GaussianBlur(img, (5, 5), 0)
-        # image = cv2.bilateralFilter(image, 15, 75, 75)
+        img = cv2.GaussianBlur(img, (9, 9), 0)
+        img = cv2.bilateralFilter(img, 21, 75, 75)
 
         img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
