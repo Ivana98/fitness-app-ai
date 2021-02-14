@@ -1,170 +1,170 @@
 [
   {
     "naziv": "apple",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 52,
+    "belancevine": 0.2,
+    "ugljeni_hidrati": 12,
+    "masti": 0.1
   },
   {
     "naziv": "banana",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 34,
+    "belancevine": 0.3,
+    "ugljeni_hidrati": 13,
+    "masti": 0.2
   },
   {
     "naziv": "apricot",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 81,
+    "belancevine": 0.1,
+    "ugljeni_hidrati": 15,
+    "masti": 0.23
   },
   {
     "naziv": "nectarine",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 64,
+    "belancevine": 0.7,
+    "ugljeni_hidrati": 14,
+    "masti": 0.21
   },
   {
     "naziv": "peach",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 74,
+    "belancevine": 0.4,
+    "ugljeni_hidrati": 18,
+    "masti": 0.24
   },
   {
     "naziv": "pomegranate",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 21,
+    "belancevine": 0.5,
+    "ugljeni_hidrati": 16,
+    "masti": 0.05
   },
   {
     "naziv": "pear",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 52,
+    "belancevine": 0.6,
+    "ugljeni_hidrati": 27,
+    "masti": 0.4
   },
   {
     "naziv": "plum",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 57,
+    "belancevine": 0.7,
+    "ugljeni_hidrati": 26,
+    "masti": 0.6
   },
   {
     "naziv": "grape",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 43,
+    "belancevine": 0.4,
+    "ugljeni_hidrati": 24,
+    "masti": 0.7
   },
   {
     "naziv": "strawberry",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 68,
+    "belancevine": 0.5,
+    "ugljeni_hidrati": 28,
+    "masti": 0.4
   },
   {
     "naziv": "cherrie",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 64,
+    "belancevine": 0.6,
+    "ugljeni_hidrati": 34,
+    "masti": 0.3
   },
   {
     "naziv": "chestnut",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 52,
+    "belancevine": 0.7,
+    "ugljeni_hidrati": 64,
+    "masti": 0.01
   },
   {
     "naziv": "cocos",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 27,
+    "belancevine": 0.5,
+    "ugljeni_hidrati": 54,
+    "masti": 0.02
   },
   {
     "naziv": "kiwi",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 98,
+    "belancevine": 0.1,
+    "ugljeni_hidrati": 52,
+    "masti": 0.04
   },
   {
     "naziv": "orange",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 45,
+    "belancevine": 0.2,
+    "ugljeni_hidrati": 24,
+    "masti": 0.05
   },
   {
     "naziv": "huckleberry",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 67,
+    "belancevine": 0.5,
+    "ugljeni_hidrati": 28,
+    "masti": 0.03
   },
   {
     "naziv": "kachi",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 33,
+    "belancevine": 0.7,
+    "ugljeni_hidrati": 76,
+    "masti": 0.01
   },
   {
     "naziv": "limes",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 65,
+    "belancevine": 0.6,
+    "ugljeni_hidrati": 45,
+    "masti": 0.05
   },
   {
     "naziv": "lychee",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 74,
+    "belancevine": 0.7,
+    "ugljeni_hidrati": 53,
+    "masti": 0.07
   },
   {
     "naziv": "mango",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 58,
+    "belancevine": 0.3,
+    "ugljeni_hidrati": 21,
+    "masti": 2
   },
   {
     "naziv": "raspberry",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 89,
+    "belancevine": 0.34,
+    "ugljeni_hidrati": 46,
+    "masti": 0.04
   },
   {
     "naziv": "salak",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 51,
+    "belancevine": 0.25,
+    "ugljeni_hidrati": 57,
+    "masti": 0.06
   },
   {
     "naziv": "tangelo",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 53,
+    "belancevine": 0.55,
+    "ugljeni_hidrati": 64,
+    "masti": 0.05
   },
   {
     "naziv": "tomato",
-    "energetska_vrednost": 3,
-    "belancevine": 2,
-    "ugljeni_hidrati": 6,
-    "masti": 1
+    "energetska_vrednost": 67,
+    "belancevine": 0.45,
+    "ugljeni_hidrati": 52,
+    "masti": 0.04
   }
 ]
