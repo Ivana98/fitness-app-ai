@@ -1,5 +1,5 @@
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Flatten, Conv2D
+from tensorflow.keras.layers import Dense, Flatten, Conv2D, Dropout
 from tensorflow.keras.losses import sparse_categorical_crossentropy
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -38,6 +38,7 @@ model.add(Conv2D(64, kernel_size=(5, 5), activation='relu'))
 model.add(Conv2D(128, kernel_size=(5, 5), activation='relu'))
 model.add(Flatten())
 model.add(Dense(16, activation='relu'))
+model.add(Dropout(0.5))
 model.add(Dense(no_classes, activation='softmax'))
 
 # Display a model summary
