@@ -22,10 +22,6 @@ def adaptive_threshold(image):
 def construct_contours(image_bin, original_image):
     contours, hierarchy = cv2.findContours(image_bin, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-    print("velicina konture" + str(len(contours)))
-    print("Hierarhija ispod: ")
-    print(hierarchy)
-
     contours_fruits = []
     for idx, contour in enumerate(contours):
 
