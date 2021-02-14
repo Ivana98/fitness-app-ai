@@ -16,6 +16,8 @@ def main():
     fruits_nutrition = read_fruit_nutrition()
     actual_nutritions = read_actual_fruit_nutritions()
 
+    sum_accuracy = 0
+    accuracy_count = 0
     current_fruits_nutrition_str = '{"energetska_vrednost": 0, "belancevine": 0, "ugljeni_hidrati": 0, "masti": 0}'
 
     for file_name in listdir(TEST_FOLDER):
@@ -40,7 +42,11 @@ def main():
             add_to_current_nutrition(current_fruits_nutrition, nutrition)
 
         accuracy = get_nutrition_accuracy(current_fruits_nutrition, actual_nutrition)
-        print('Accuracy for current image: ' + str(accuracy))
+        sum_accuracy += accuracy
+        accuracy_count += 1
+        print('Accuracy for ' + file_name + ': ' + str(accuracy))
+
+    print('\n\nGeneral accuracy: ' + str(sum_accuracy / accuracy_count))
 
 
 def get_class_name(image):
